@@ -1,22 +1,21 @@
 /*
  * scene.js — background three.js scene.
  *
- * A wireframe "orchestrator" core sits in the middle; one node per payment
- * processor sits on a shell around it. Request packets fly out to a node and a
- * response packet comes back coloured by outcome (approved / pending / declined).
- * Every response that lands fires a `tx` CustomEvent on window, which app.js
- * prints into the hero's transaction log.
+ * A wireframe core (the orchestrator / model) sits in the middle, a violet ring
+ * of agent nodes around it, and one node per payment processor on an outer
+ * shell. Each processor hangs off its nearest agent. Request packets fly out
+ * core -> agent -> processor and come back coloured by outcome
+ * (approved / pending / declined); the agent they pass through lights up.
  */
 (function () {
   "use strict";
 
   var canvas = document.getElementById("scene");
-  var logEl = document.getElementById("tx-log");
   if (!canvas || typeof THREE === "undefined") { document.documentElement.classList.add("no-webgl"); return; }
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var processors = [];
-  try { processors = JSON.parse(logEl.getAttribute("data-processors")); } catch (err) { processors = []; }
+  try { processors = JSON.parse(canvas.getAttribute("data-processors")); } catch (err) { processors = []; }
   if (!processors.length) processors = ["Adyen", "Stripe", "PayPal", "dLocal", "Nuvei"];
 
   var renderer;
@@ -90,9 +89,36 @@
   var rings = [ring(2.3, 1.2, 0.3, 0x818cf8, 0.25), ring(3.1, 0.4, 1.1, 0x5eead4, 0.14), ring(5.6, 1.45, 0.0, 0x8b97ad, 0.08)];
   rings.forEach(function (r) { world.add(r); });
 
+  // ---- agent ring ----
+  var AGENT_COUNT = 8;
+  var agents = [];
+  var agentGroup = new THREE.Group();
+  agentGroup.rotation.set(0.5, 0, 0.25);
+  world.add(agentGroup);
+  for (var ai = 0; ai < AGENT_COUNT; ai++) {
+    var aa = (ai / AGENT_COUNT) * Math.PI * 2;
+    var apos = new THREE.Vector3(Math.cos(aa) * 2.9, Math.sin(aa * 2) * 0.35, Math.sin(aa) * 2.9);
+    var halo = sprite(0xa78bfa, 1.1, 0.35);
+    var dotA = sprite(0xe9d5ff, 0.38, 0.95);
+    halo.position.copy(apos); dotA.position.copy(apos);
+    agentGroup.add(halo, dotA);
+    agents.push({ local: apos, halo: halo, flash: 0, world: new THREE.Vector3() });
+  }
+  agentGroup.updateMatrix();
+  function agentWorldPos(a, out) { return out.copy(a.local).applyMatrix4(agentGroup.matrix); }
+  // ring linking neighbouring agents
+  var ringPts = [];
+  for (var ri = 0; ri <= AGENT_COUNT; ri++) ringPts.push(agents[ri % AGENT_COUNT].local.clone());
+  agentGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(ringPts), new THREE.LineBasicMaterial({ color: 0xa78bfa, transparent: true, opacity: 0.28 })));
+
   // ---- processor nodes on a Fibonacci sphere ----
   var nodes = [];
   var linePositions = [];
+  var corePositions = [];
+  agents.forEach(function (a) { agentWorldPos(a, a.world); corePositions.push(0, 0, 0, a.world.x, a.world.y, a.world.z); });
+  var coreSpokeGeo = new THREE.BufferGeometry();
+  coreSpokeGeo.setAttribute("position", new THREE.Float32BufferAttribute(corePositions, 3));
+  world.add(new THREE.LineSegments(coreSpokeGeo, new THREE.LineBasicMaterial({ color: 0xa78bfa, transparent: true, opacity: 0.22 })));
   var n = processors.length;
   var golden = Math.PI * (3 - Math.sqrt(5));
   for (var i = 0; i < n; i++) {
@@ -105,7 +131,10 @@
     dot.position.copy(pos);
     world.add(dot);
     nodes.push({ name: processors[i], pos: pos, sprite: dot, flash: 0, color: new THREE.Color(0xc7d2fe) });
-    linePositions.push(0, 0, 0, pos.x, pos.y, pos.z);
+    var best = agents[0], bestD = Infinity;
+    for (var bj = 0; bj < agents.length; bj++) { var dd = agents[bj].world.distanceToSquared(pos); if (dd < bestD) { bestD = dd; best = agents[bj]; } }
+    nodes[nodes.length - 1].agent = best;
+    linePositions.push(best.world.x, best.world.y, best.world.z, pos.x, pos.y, pos.z);
   }
   var spokeGeo = new THREE.BufferGeometry();
   spokeGeo.setAttribute("position", new THREE.Float32BufferAttribute(linePositions, 3));
@@ -148,8 +177,9 @@
 
   function spawn() {
     var node = nodes[(Math.random() * nodes.length) | 0];
-    var mid = node.pos.clone().multiplyScalar(0.5);
-    mid.add(new THREE.Vector3((Math.random() - 0.5) * 1.6, (Math.random() - 0.5) * 1.6, (Math.random() - 0.5) * 1.6));
+    // Bend the path through the processor's agent so traffic visibly flows via the agent ring.
+    var mid = node.agent.world.clone().multiplyScalar(1.35);
+    mid.add(new THREE.Vector3((Math.random() - 0.5) * 0.5, (Math.random() - 0.5) * 0.5, (Math.random() - 0.5) * 0.5));
     var sp = getSprite();
     sp.material.color.copy(COLORS.req);
     sp.scale.set(0.26, 0.26, 1);
@@ -177,6 +207,7 @@
           p.t = 0;
           p.dur = p.status === "pend" ? p.dur * 1.6 : p.dur;
           p.node.flash = 1;
+          p.node.agent.flash = 1;
           p.node.color.copy(COLORS[p.status]);
           p.sprite.material.color.copy(COLORS[p.status]);
           p.sprite.scale.set(0.34, 0.34, 1);
@@ -205,6 +236,7 @@
   function onScroll() {
     var max = document.documentElement.scrollHeight - window.innerHeight;
     scrollP = max > 0 ? window.scrollY / max : 0;
+    canvas.style.opacity = String(1 - 0.5 * Math.min(1, window.scrollY / window.innerHeight));
   }
   window.addEventListener("scroll", onScroll, { passive: true });
 
@@ -213,12 +245,24 @@
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
-    // On wide screens the core sits behind the right half (next to the terminal).
-    world.userData.baseX = w > 980 ? 3.4 : 0;
-    world.userData.baseY = w > 980 ? 0 : -3.6;
+    // Wide screens: the core peeks out from the left edge of the portrait.
+    // Narrow screens: measure the portrait and centre the (smaller) network behind it.
+    world.userData.baseX = 3.4;
+    world.userData.baseY = 0;
+    world.scale.setScalar(1);
+    var portrait = document.querySelector(".portrait");
+    if (w <= 980 && portrait) {
+      var r = portrait.getBoundingClientRect();
+      var cy = r.top + window.scrollY + r.height / 2, cx = r.left + r.width / 2;
+      var halfH = 14 * Math.tan((camera.fov / 2) * Math.PI / 180);
+      world.userData.baseY = (0.5 - cy / h) * 2 * halfH;
+      world.userData.baseX = (cx / w - 0.5) * 2 * halfH * camera.aspect;
+      world.scale.setScalar(0.72);
+    }
   }
   window.addEventListener("resize", resize);
   resize();
+  world.position.set(world.userData.baseX, world.userData.baseY, 0);
   onScroll();
 
   // ---- loop ----
@@ -238,6 +282,13 @@
     }
     updatePackets(dt);
 
+    for (var ak = 0; ak < agents.length; ak++) {
+      var ag = agents[ak];
+      ag.flash = Math.max(0, ag.flash - dt * 2.2);
+      var hs = 1.1 + ag.flash * 0.9 + Math.sin(t * 2 + ak) * 0.08;
+      ag.halo.scale.set(hs, hs, 1);
+      ag.halo.material.opacity = 0.3 + ag.flash * 0.45;
+    }
     for (var i = 0; i < nodes.length; i++) {
       var nd = nodes[i];
       if (nd.flash > 0) {
@@ -267,7 +318,7 @@
 
     world.rotation.y = t * 0.06 + scrollP * Math.PI * 1.4 + mouse.x * 0.25;
     world.rotation.x = 0.18 + mouse.y * 0.15 + Math.sin(scrollP * Math.PI) * 0.35;
-    var bx = world.userData.baseX * (1 - Math.min(1, scrollP * 6));
+    var bx = window.innerWidth > 980 ? world.userData.baseX * (1 - Math.min(1, scrollP * 6)) : world.userData.baseX;
     world.position.x += (bx - world.position.x) * 0.05;
     world.position.y += (world.userData.baseY - world.position.y) * 0.05;
     camera.position.z = 14 + Math.sin(scrollP * Math.PI) * 4;

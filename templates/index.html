@@ -3,106 +3,160 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{SHORT_NAME}} · Payments Engineer</title>
-<meta name="description" content="{{NAME}} — {{ROLE}}. {{TAGLINE}}">
-<meta property="og:title" content="{{SHORT_NAME}} · Payments Engineer">
-<meta property="og:description" content="{{TAGLINE}}">
-<meta property="og:type" content="website">
+<title>{{SHORT_NAME}} · Generative AI & Backend Engineer</title>
+<meta name="description" content="{{NAME}}, {{ROLE}}. {{TAGLINE}}">
+<link rel="canonical" href="{{SITE_URL}}">
+<meta property="og:title" content="{{SHORT_NAME}} · Generative AI & Backend Engineer">
+<meta property="og:description" content="{{SUBROLE}}. {{HERO_BADGE}}.">
+<meta property="og:type" content="profile">
+<meta property="og:url" content="{{SITE_URL}}">
+<meta property="og:image" content="{{SITE_URL}}img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#05070d">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2305070d'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='28' font-weight='700' text-anchor='middle' fill='%235eead4'%3EVR%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/portrait.webp" type="image/webp">
 <link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"{{NAME}}","jobTitle":"{{ROLE}}","url":"{{SITE_URL}}","image":"{{SITE_URL}}img/portrait.jpg","email":"mailto:{{EMAIL}}","sameAs":["{{LINKEDIN}}","{{GITHUB}}"],"address":{"@type":"PostalAddress","addressLocality":"Ahmedabad","addressCountry":"IN"}}
+</script>
 </head>
 <body>
-<canvas id="scene" aria-hidden="true"></canvas>
+<canvas id="scene" aria-hidden="true" data-processors="{{PROCESSORS_JSON}}"></canvas>
 <div class="vignette" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
 
 <header class="nav glass">
   <a href="#top" class="brand mono">vivek<span class="accent">.rajpara</span></a>
   <nav aria-label="Sections">
     <a href="#about">About</a>
+    <a href="#ai">AI systems</a>
     <a href="#experience">Experience</a>
-    <a href="#cases">Incidents</a>
-    <a href="#skills">Skills</a>
     <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
     <a href="#contact" class="nav-cta">Contact</a>
   </nav>
 </header>
 
 <main id="top">
+  <!-- ============ HERO ============ -->
   <section class="hero">
     <div class="hero-text">
-      <p class="eyebrow mono"><span class="pulse"></span> open to backend &amp; payments roles</p>
+      <a class="hero-badge mono" href="#hackathon">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z"/></svg>
+        {{HERO_BADGE}}
+      </a>
       <h1>{{NAME}}</h1>
-      <p class="role">{{ROLE}}</p>
+      <p class="role"><span class="grad">{{ROLE}}</span></p>
+      <p class="rotator mono" aria-live="polite">
+        <span class="muted">I build&nbsp;</span><span id="rot" data-words="{{ROTATING_JSON}}">{{ROTATING_FIRST}}</span><span class="caret" aria-hidden="true"></span>
+      </p>
       <p class="tagline">{{TAGLINE}}</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="#experience">See the work</a>
+        <a class="btn btn-primary" href="#ai">See the AI systems</a>
         <a class="btn btn-glass" href="mailto:{{EMAIL}}">Email me</a>
+        <a class="btn btn-icon" href="{{LINKEDIN}}" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C20.4 8.65 21 11.1 21 14.3V21h-4v-5.9c0-1.4-.03-3.2-1.95-3.2-1.95 0-2.25 1.52-2.25 3.1V21H9z"/></svg>
+        </a>
+        <a class="btn btn-icon" href="{{GITHUB}}" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.83 1.19 3.08 0 4.41-2.69 5.39-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>
+        </a>
       </div>
       <p class="loc mono">{{LOCATION}}</p>
     </div>
 
-    <aside class="terminal glass" aria-label="Simulated transaction log">
-      <div class="term-head">
-        <span class="dots"><i></i><i></i><i></i></span>
-        <span class="mono">orchestrator.log</span>
-        <span class="mono term-rate" id="tx-rate">0 tx</span>
+    <figure class="portrait">
+      <div class="portrait-ring" aria-hidden="true"></div>
+      <div class="portrait-frame glass">
+        <picture>
+          <source srcset="img/portrait.webp" type="image/webp">
+          <img src="img/portrait.jpg" alt="Portrait of {{NAME}}" width="880" height="880" fetchpriority="high">
+        </picture>
+        <div class="scanline" aria-hidden="true"></div>
       </div>
-      <ol class="term-body mono" id="tx-log" data-processors="{{PROCESSORS_JSON}}"></ol>
-      <p class="term-note mono">simulated traffic, drawn from the 3D scene behind this page</p>
-    </aside>
+      <span class="float-chip glass mono c1">LLM agents</span>
+      <span class="float-chip glass mono c2">Go</span>
+      <span class="float-chip glass mono c3">Claude Code</span>
+      <span class="float-chip glass mono c4">55+ PSPs</span>
+      <figcaption class="now glass mono"><span class="pulse"></span>{{NOW}}</figcaption>
+    </figure>
 
     <a href="#about" class="scroll-cue mono" aria-label="Scroll to About">scroll ↓</a>
   </section>
 
+  <!-- ============ ABOUT ============ -->
   <section id="about" class="section">
     <div class="section-head reveal">
       <span class="kicker mono">01 / about</span>
-      <h2>I keep payments flowing between merchants and processors.</h2>
+      <h2>An engineer who builds the agents <span class="grad">and</span> the systems they work on.</h2>
     </div>
     <div class="about-grid">
+      <div class="about-photo glass reveal">
+        <picture>
+          <source srcset="img/casual.webp" type="image/webp">
+          <img src="img/casual.jpg" alt="{{SHORT_NAME}}, casual photo" width="760" height="760" loading="lazy">
+        </picture>
+      </div>
       <div class="about-text glass reveal">{{SUMMARY}}</div>
-      <div class="stats">{{STATS}}</div>
     </div>
+    <div class="stats">{{STATS}}</div>
   </section>
 
+  <!-- ============ AI SYSTEMS ============ -->
+  <section id="ai" class="section">
+    <div class="section-head reveal">
+      <span class="kicker mono">02 / ai systems</span>
+      <h2>Agents I've designed and shipped</h2>
+      <p class="lead">From a hackathon win to tools my team uses every day. My agents show their evidence, and a human approves anything that leaves the loop.</p>
+    </div>
+
+    {{HACKATHON}}
+
+    <div class="agent-demo glass reveal" id="agent-demo">
+      <div class="demo-head">
+        <span class="kicker mono">the on-call cycle</span>
+        <button class="replay mono" type="button" id="replay">↻ replay</button>
+      </div>
+      <ol class="pipeline">{{PIPELINE}}</ol>
+      <div class="terminal">
+        <div class="term-head">
+          <span class="dots"><i></i><i></i><i></i></span>
+          <span class="mono">agent.run</span>
+          <span class="mono term-rate" id="run-state">idle</span>
+        </div>
+        <ol class="term-body mono" id="agent-log" data-run="{{AGENT_RUN_JSON}}"></ol>
+        <p class="term-note mono">Illustrative replay, based on the webhook 5XX incident under Experience</p>
+      </div>
+    </div>
+
+    <div class="ai-grid">{{AI_SYSTEMS}}</div>
+  </section>
+
+  <!-- ============ EXPERIENCE ============ -->
   <section id="experience" class="section">
     <div class="section-head reveal">
-      <span class="kicker mono">02 / experience</span>
+      <span class="kicker mono">03 / experience</span>
       <h2>Where I've worked</h2>
     </div>
     <div class="timeline">{{EXPERIENCE}}</div>
-  </section>
 
-  <section id="cases" class="section">
-    <div class="section-head reveal">
-      <span class="kicker mono">03 / production incidents</span>
-      <h2>Bugs I've chased down in production</h2>
+    <div class="section-head sub reveal">
+      <span class="kicker mono">production incidents</span>
+      <h3 class="h3-lg">Bugs I've chased down in production</h3>
       <p class="lead">Every fix ships with evidence: before/after traces, verified on staging before release.</p>
     </div>
     <div class="cases">{{CASES}}</div>
   </section>
 
-  <section id="skills" class="section">
-    <div class="section-head reveal">
-      <span class="kicker mono">04 / skills</span>
-      <h2>What I work with</h2>
-    </div>
-    <div class="skills">{{SKILLS}}</div>
-    <div class="processors reveal">
-      <h3 class="mono">Processors, wallets &amp; fraud providers I've integrated or debugged</h3>
-      <div class="marquee">{{PROCESSORS}}</div>
-    </div>
-  </section>
-
+  <!-- ============ PROJECTS ============ -->
   <section id="projects" class="section">
     <div class="section-head reveal">
-      <span class="kicker mono">05 / projects</span>
-      <h2>Side projects</h2>
+      <span class="kicker mono">04 / projects</span>
+      <h2>Things I build after hours</h2>
     </div>
+    {{FEATURED}}
     <div class="projects">{{PROJECTS}}</div>
     <div class="edu-row">
       <div class="edu glass reveal">
@@ -118,11 +172,25 @@
     </div>
   </section>
 
+  <!-- ============ SKILLS ============ -->
+  <section id="skills" class="section">
+    <div class="section-head reveal">
+      <span class="kicker mono">05 / skills</span>
+      <h2>What I work with</h2>
+    </div>
+    <div class="skills">{{SKILLS}}</div>
+    <div class="processors reveal">
+      <h3 class="mono">Processors, wallets &amp; fraud providers I've integrated or debugged</h3>
+      <div class="marquee">{{PROCESSORS}}</div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
   <section id="contact" class="section contact">
     <div class="contact-card glass reveal">
       <span class="kicker mono">06 / contact</span>
-      <h2>Need someone to own your payment integrations?</h2>
-      <p class="lead">I'm happy to talk about backend, payments and integration roles, remote or in Ahmedabad.</p>
+      <h2>Building with LLM agents, or need payments done right?</h2>
+      <p class="lead">I'm open to Generative AI engineering, agentic systems and backend/payments roles, remote or in Ahmedabad.</p>
       <a class="email mono" href="mailto:{{EMAIL}}">{{EMAIL}}</a>
       <div class="hero-actions center">
         <a class="btn btn-glass" href="{{LINKEDIN}}" target="_blank" rel="noopener">LinkedIn ↗</a>

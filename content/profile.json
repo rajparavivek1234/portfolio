@@ -1,21 +1,194 @@
 {
   "name": "Vivek H. Rajpara",
   "short_name": "Vivek Rajpara",
-  "role": "Backend Engineer — Payments Orchestration & Processor Integrations",
-  "tagline": "I build and run the connectors that move money between merchants and 55+ payment processors, in Go.",
+  "role": "Generative AI & Backend Engineer",
+  "subrole": "Agentic systems · LLM tooling · Payment infrastructure in Go",
+  "rotating": [
+    "AI agents that ship fixes",
+    "LLM tooling for engineers",
+    "payment infrastructure in Go",
+    "multi-agent research systems"
+  ],
+  "tagline": "My agents take production work from raw evidence to a verified fix. I also build the Go payment systems they work on, which at Yuno connect merchants to 55+ processors.",
   "location": "Ahmedabad, Gujarat, India · IST with EU overlap · Remote",
+  "now": "Building agentic tooling @ Yuno",
   "email": "rajparavivek1234@gmail.com",
-  "linkedin": "https://www.linkedin.com/in/vivek-rajpara-b34527194",
+  "linkedin": "https://www.linkedin.com/in/vivek-rajpara-gen-ai",
   "github": "https://github.com/rajparavivek1234",
+  "site_url": "https://rajparavivek1234.github.io/portfolio/",
   "summary": [
-    "I'm a hands-on payments engineer working on the processor connections behind a multi-processor orchestration platform. At Yuno I own gateway adapters end to end: request builders, tokenization and PCI-vault connectivity, normalized status and decline mapping, webhooks and reconciliation, and keeping the connectors reliable once merchants are live.",
-    "Go is my main language; I also write Node.js and Rust. I work AI-native: I built agent tooling that takes a production ticket from evidence gathering to a test-driven fix, a PR verified on staging and a written evidence report. That tooling is how I keep up the volume below without lowering the review bar."
+    "I'm an AI-native backend engineer. My day job is owning payment-processor connectors at Yuno, a payment orchestration platform. These are Go microservices that handle authorization, tokenization, 3DS, webhooks and reconciliation for 55+ processors, wallets and fraud providers.",
+    "Agents changed how I work. I designed a suite of about 20 Claude Code skills that takes a production ticket from Jira, Slack and Datadog evidence to a root cause, a failing test, a fix, a staging-verified PR and a written evidence report, with every message to a person drafted for my approval first. That suite is how I authored 350+ PRs, reviewed 700+ and closed 470+ tickets in one year.",
+    "In 2026 my team of three won Yuno's Agents Hackathon with the Feature ETA Agent, which turns a feature request into a delivery date with P50/P80/P95 confidence. The dates are computed by code, never typed by the model. Each of us was awarded 5,000 ESOPs.",
+    "Outside work I build Nexus, a multi-agent research platform for markets. Its rule: no idea is trusted until it beats a random control."
   ],
   "stats": [
-    {"value": 350, "suffix": "+", "label": "PRs authored", "detail": "across 45+ connector & platform repos (215+ merged)"},
-    {"value": 700, "suffix": "+", "label": "PRs reviewed", "detail": "for the Integrations org"},
-    {"value": 470, "suffix": "+", "label": "production tickets closed", "detail": "bugs, merchant incidents, alerts — in 12 months"},
-    {"value": 55, "suffix": "+", "label": "providers touched", "detail": "processors, wallets, 3DS and fraud providers"}
+    {
+      "value": 350,
+      "suffix": "+",
+      "label": "PRs authored",
+      "detail": "across 45+ connector & platform repos (215+ merged)"
+    },
+    {
+      "value": 700,
+      "suffix": "+",
+      "label": "PRs reviewed",
+      "detail": "for the Integrations org"
+    },
+    {
+      "value": 470,
+      "suffix": "+",
+      "label": "production tickets closed",
+      "detail": "bugs, merchant incidents, alerts, in 12 months"
+    },
+    {
+      "value": 20,
+      "suffix": "",
+      "label": "agent skills designed",
+      "detail": "Claude Code skills for diagnosis, fixes, verification and release"
+    }
+  ],
+  "pipeline": [
+    {
+      "id": "intake",
+      "label": "Intake",
+      "sub": "Jira · Slack · alert"
+    },
+    {
+      "id": "evidence",
+      "label": "Evidence",
+      "sub": "logs · traces · code"
+    },
+    {
+      "id": "cause",
+      "label": "Root cause",
+      "sub": "docs vs. our code"
+    },
+    {
+      "id": "test",
+      "label": "Failing test",
+      "sub": "TDD first"
+    },
+    {
+      "id": "fix",
+      "label": "Fix + PR",
+      "sub": "draft, self-reviewed"
+    },
+    {
+      "id": "staging",
+      "label": "Staging proof",
+      "sub": "before / after traces"
+    },
+    {
+      "id": "gate",
+      "label": "Human gate",
+      "sub": "\"ready to merge\"",
+      "gate": true
+    },
+    {
+      "id": "release",
+      "label": "Release",
+      "sub": "canary watch"
+    }
+  ],
+  "agent_run": [
+    {
+      "stage": "intake",
+      "text": "ticket: webhook endpoint returning 5XX, provider retrying for days"
+    },
+    {
+      "stage": "evidence",
+      "text": "pulled webhook logs, provider retry traces and the handler code path"
+    },
+    {
+      "stage": "cause",
+      "text": "ignorable event types fall into the error branch → HTTP 500 → retry loop"
+    },
+    {
+      "stage": "test",
+      "text": "TestWebhook_IgnorableEvent_Returns204 ... FAIL (got 500)"
+    },
+    {
+      "stage": "fix",
+      "text": "ignorable path now acks 204; monitor separates retries from real failures"
+    },
+    {
+      "stage": "test",
+      "text": "TestWebhook_IgnorableEvent_Returns204 ... PASS"
+    },
+    {
+      "stage": "staging",
+      "text": "staging: before 500 → after 204, trace ids attached to the PR"
+    },
+    {
+      "stage": "gate",
+      "text": "draft PR + evidence report ready, waiting for a human \"ready to merge\""
+    },
+    {
+      "stage": "release",
+      "text": "released; watching error rates against last week's baseline"
+    }
+  ],
+  "ai_systems": [
+    {
+      "kicker": "Production · Yuno",
+      "title": "On-call agent suite",
+      "text": "About 20 Claude Code skills chained into one cycle: ticket diagnosis, payment and webhook forensics, alert triage, connector fixes with TDD, staging verification, PR review, release approval and deploy monitoring. Each skill pulls its own evidence from Jira, Slack, Datadog, the database and code.",
+      "tags": [
+        "Claude Code",
+        "Skills & subagents",
+        "MCP",
+        "Datadog",
+        "GitHub"
+      ],
+      "metric": "350+ PRs · 700+ reviews · 470+ tickets in a year"
+    },
+    {
+      "kicker": "Production · Yuno",
+      "title": "Hands-off E2E payment bot",
+      "text": "Creates a payment through the public API, follows the provider redirect in headless Chrome, and does whatever the sandbox page asks: approve, pick a bank, or type the 3DS OTP inside an iframe. It then waits for the callback, polls to a final status and collects Datadog evidence.",
+      "tags": [
+        "Headless Chrome",
+        "3DS",
+        "Redirect APMs",
+        "Agents"
+      ],
+      "metric": "removes the manual browser step from payment QA"
+    },
+    {
+      "kicker": "Production · Yuno",
+      "title": "Deploy-monitor agent",
+      "text": "Spots a version change and compares old against new: error categories, provider latency p50/p95/p99, 2xx/4xx/5xx, resource use and decline mix, all measured against the same window last week. It keeps watching the canary and only raises anomalies that clear a calibrated bar.",
+      "tags": [
+        "Observability",
+        "Canary analysis",
+        "Anomaly detection"
+      ],
+      "metric": "watches every 20 min while rolling, hourly for 12 h after"
+    },
+    {
+      "kicker": "Guardrails",
+      "title": "Evidence-first agent design",
+      "text": "My agents never report state from memory. A verify-first rule makes them check every claim live before stating it, and a post gate re-reads the Slack thread or ticket right before replying so they never re-ask a settled question. Merges and production deploys always wait for a human.",
+      "tags": [
+        "Human-in-the-loop",
+        "Grounding",
+        "Safety gates"
+      ],
+      "metric": "no outward message without one human approval"
+    },
+    {
+      "kicker": "Production · Rapidops",
+      "title": "LLM email intelligence",
+      "text": "LLM-based classification of CRM email into spam, transactional and promotional, together with phishing and malicious-URL detection, running inside a Go email-sync pipeline.",
+      "tags": [
+        "LLM classification",
+        "OpenAI API",
+        "Go",
+        "Security"
+      ],
+      "metric": "triage efficiency up ~40%, sync latency down ~30%"
+    }
   ],
   "experience": [
     {
@@ -24,16 +197,40 @@
       "title": "Software Engineer, Integrations",
       "period": "Sep 2025 — Present",
       "place": "Remote",
-      "intro": "I own processor connectors (Go microservices on a shared integration framework) from first build through production, and I'm the main Integrations responder for merchant-facing incidents.",
+      "intro": "I own processor connectors (Go microservices on a shared integration framework) from first build through production. I'm also the main Integrations responder for merchant-facing incidents, and I built the agent tooling the work runs on.",
       "areas": [
-        {"title": "Gateway adapters", "text": "Built and shipped processor adapters end to end: QI Cards with 3DS (Iraq), Monnet card redirect, Wompi–Nequi, ZainCash, Tabapay and AllInPay. Took over and finished NHN KCP (Korea: card, bank transfer, carrier billing, with webhook reconciliation of lost approvals). Onboarded Monri and payabl into the PCI egress proxy, and added card verification and wallet support to Merchantware, Kushki, Worldpay and Nuvei."},
-        {"title": "Tokenization & vault", "text": "Registered providers and signing commands in the PCI egress proxy so a raw PAN never enters connector code. Fixed network-token flows (Visa/Mastercard cryptograms, cryptogram-less DPAN MITs, Apple Pay / Google Pay DSRP + ECI) across Airwallex, emerchantpay, Nuvei, Unlimint, PayPal and dLocal."},
-        {"title": "Normalized responses", "text": "Own the mapping of processor statuses and decline codes into the platform's unified taxonomy: network-decline-code-first mapping for Stripe, separating timeouts from terminal declines for Rede, Cielo and PayPal, intermediate states for Ecommpay, and corrected terminal declines for CIBC, Kushki, Bamboo and Getnet."},
-        {"title": "Webhooks & reconciliation", "text": "Hardened webhook services for Adyen, Airwallex, Mercado Pago, Stripe, dLocal, Starkbank, Zoop, QI and KCP: idempotent acks, provider-ID recovery on declines, fraud-review replay, expiry fallbacks for abandoned 3DS and PIX, and removal of a self-amplifying 5XX retry loop."},
-        {"title": "Subscriptions & retries", "text": "Fixed CIT/MIT stored-credential chains that broke recurring charges: off-session flags (Stripe), network-transaction-ID format (Airwallex), chain references (Unlimint), ACDC stored credentials (PayPal), UPI Autopay mandates (Adyen) and CVV-token recurring (CobroDigital)."},
-        {"title": "Production reliability", "text": "On the Integrations on-call rotation: alert-storm forensics, a multi-provider egress outage RCA, a settlement duplicate-submission race (compare-and-set fix), stuck-refund pollers and monitor design. Every fix ships with staging before/after traces and mutation-tested mapping tables."},
-        {"title": "Security & hygiene", "text": "Removed cleartext credentials from HTTP logs in three connectors, drove SQL-injection (pgx) remediation across 10 repos and open-redirect (chi) fixes across 6, plus Go toolchain CVE bumps."},
-        {"title": "AI-native engineering", "text": "Built a Claude Code skill suite that runs a ticket from Jira/Datadog/code evidence to a TDD fix, draft PR, staging verification and evidence report; a hands-off E2E payment bot that drives provider redirects and 3DS challenges in headless Chrome; and an internal \"feature ETA\" agent."}
+        {
+          "title": "Gateway adapters",
+          "text": "Built and shipped processor adapters end to end: QI Cards with 3DS (Iraq), Monnet card redirect, Wompi–Nequi, ZainCash, Tabapay and AllInPay. Took over and finished NHN KCP (Korea: card, bank transfer, carrier billing, with webhook reconciliation of lost approvals). Onboarded Monri and payabl into the PCI egress proxy."
+        },
+        {
+          "title": "Tokenization & vault",
+          "text": "Registered providers and signing commands in the PCI egress proxy so a raw PAN never enters connector code. Fixed network-token flows (Visa/Mastercard cryptograms, cryptogram-less DPAN MITs, Apple Pay / Google Pay DSRP + ECI) across Airwallex, emerchantpay, Nuvei, Unlimint, PayPal and dLocal."
+        },
+        {
+          "title": "Normalized responses",
+          "text": "Own the mapping of processor statuses and decline codes into the platform's unified taxonomy: network-decline-code-first mapping for Stripe, separating timeouts from terminal declines for Rede, Cielo and PayPal, and corrected terminal declines for CIBC, Kushki, Bamboo and Getnet."
+        },
+        {
+          "title": "Webhooks & reconciliation",
+          "text": "Hardened webhook services for Adyen, Airwallex, Mercado Pago, Stripe, dLocal, Starkbank, Zoop, QI and KCP: idempotent acks, provider-ID recovery on declines, fraud-review replay, expiry fallbacks for abandoned 3DS and PIX, and removal of a self-amplifying 5XX retry loop."
+        },
+        {
+          "title": "Subscriptions & retries",
+          "text": "Fixed CIT/MIT stored-credential chains that broke recurring charges: off-session flags (Stripe), network-transaction-ID format (Airwallex), chain references (Unlimint), ACDC stored credentials (PayPal), UPI Autopay mandates (Adyen) and CVV-token recurring (CobroDigital)."
+        },
+        {
+          "title": "Production reliability",
+          "text": "On the Integrations on-call rotation: alert-storm forensics, a multi-provider egress outage RCA, a settlement duplicate-submission race (compare-and-set fix), stuck-refund pollers and monitor design. Every fix ships with staging before/after traces and mutation-tested mapping tables."
+        },
+        {
+          "title": "Security & hygiene",
+          "text": "Removed cleartext credentials from HTTP logs in three connectors, drove SQL-injection (pgx) remediation across 10 repos and open-redirect (chi) fixes across 6, plus Go toolchain CVE bumps."
+        },
+        {
+          "title": "AI-native engineering",
+          "text": "Won the Yuno Agents Hackathon (2026) with the Feature ETA Agent. Designed the on-call agent skill suite, the E2E payment bot and the deploy-monitor agent described above."
+        }
       ]
     },
     {
@@ -42,13 +239,28 @@
       "title": "Software Engineer",
       "period": "Jan 2023 — Aug 2025",
       "place": "Ahmedabad, India",
-      "intro": "Backend work on a SaaS CRM: email infrastructure, workflow automation, analytics and security.",
+      "intro": "Backend work on a SaaS CRM: email infrastructure, LLM features, workflow automation, analytics and security.",
       "areas": [
-        {"title": "Email sync in Go", "text": "Engineered the Go email-synchronization pipeline (IMAP / Gmail / Outlook), cutting sync latency ~30%, and refactored performance-critical Node.js services into Go to cut CPU and response time."},
-        {"title": "LLM classification", "text": "Integrated LLM-based email classification (spam, transactional vs. promotional) plus phishing and malicious-URL detection, raising triage efficiency ~40%."},
-        {"title": "Smart Flow & AI Agent", "text": "Backend logic for a no-code automation engine running 100K+ workflows a day: triggers, conditions, branching and actions."},
-        {"title": "Analytics & data", "text": "Real-time analytics pipelines (Kafka into ClickHouse) for CRM reporting; secure CSV/Excel import with rollback, de-duplication and GDPR-compliant updates."},
-        {"title": "Security", "text": "Hardened REST APIs against SQL injection and unauthorized access; built role-based document management with password-protected sharing and deal split-credit logic."}
+        {
+          "title": "Email sync in Go",
+          "text": "Engineered the Go email-synchronization pipeline (IMAP / Gmail / Outlook), cutting sync latency ~30%, and refactored performance-critical Node.js services into Go to cut CPU and response time."
+        },
+        {
+          "title": "LLM classification",
+          "text": "Integrated LLM-based email classification (spam, transactional vs. promotional) plus phishing and malicious-URL detection, raising triage efficiency ~40%."
+        },
+        {
+          "title": "Smart Flow & AI Agent",
+          "text": "Backend logic for a no-code automation engine running 100K+ workflows a day: triggers, conditions, branching and actions."
+        },
+        {
+          "title": "Analytics & data",
+          "text": "Real-time analytics pipelines (Kafka into ClickHouse) for CRM reporting; secure CSV/Excel import with rollback, de-duplication and GDPR-compliant updates."
+        },
+        {
+          "title": "Security",
+          "text": "Hardened REST APIs against SQL injection and unauthorized access; built role-based document management with password-protected sharing and deal split-credit logic."
+        }
       ]
     }
   ],
@@ -61,7 +273,7 @@
     },
     {
       "title": "Recurring charges failing at a gateway",
-      "symptom": "Merchant-initiated renewals were declined: off-session and network-transaction-ID rules only applied to subscriptions.",
+      "symptom": "Merchant-initiated renewals were declined because the off-session and network-transaction-ID rules only applied to subscriptions.",
       "fix": "Extended the merchant-initiated predicate to every stored-credential flow and normalized the network-transaction-ID format.",
       "proof": "Verified on staging before release."
     },
@@ -72,19 +284,268 @@
       "proof": "Alert volume back to baseline."
     }
   ],
-  "skills": [
-    {"group": "Payments domain", "items": ["Auth / capture / void / refund / verify", "3DS 2.x & exemptions", "Network tokens (VTS, MDES)", "Apple Pay / Google Pay", "CIT / MIT stored credentials", "Subscriptions & rebills", "Chargebacks & fraud feedback", "PIX · UPI · SPEI · open banking", "PCI vault & egress proxy", "Idempotency & retries", "Routing fallback"]},
-    {"group": "Languages", "items": ["Go (primary)", "Node.js / JavaScript", "Rust", "SQL", "Reads Kotlin"]},
-    {"group": "Platform", "items": ["Kubernetes", "Docker", "Kafka", "NATS", "PostgreSQL", "Redis", "MongoDB", "ClickHouse", "CockroachDB", "Datadog (logs, APM, monitors)", "Drone CI", "GCP"]},
-    {"group": "Engineering practice", "items": ["TDD", "Mutation testing", "Staging before/after evidence", "RCA with sequence diagrams", "On-call & incident response", "Credential redaction", "CVE remediation"]},
-    {"group": "AI-native tooling", "items": ["Claude Code agent skills", "Headless-browser E2E bots", "LLM classification pipelines", "Prompt design", "Internal agent platforms"]}
-  ],
-  "processors": ["Adyen", "Stripe", "PayPal", "Braintree", "Airwallex", "Checkout.com", "Worldpay", "CyberSource", "Nuvei", "MPGS", "Ecommpay", "Unlimint", "emerchantpay", "Kushki", "dLocal", "Mercado Pago", "Rede", "Cielo", "Getnet", "PagBank", "Bamboo", "CIBC", "NHN KCP", "QI", "Monri", "payabl", "Wompi", "Monnet", "ZainCash", "Tabapay", "AllInPay", "Santander", "Itaú", "Starkbank", "STP", "Splitit", "Riskified", "Signifyd", "Forter", "ClearSale", "VGS"],
+  "featured": {
+    "name": "Nexus",
+    "kicker": "Personal project · 2026 · private repo",
+    "title": "A multi-agent research platform for markets",
+    "text": "24 agent modules (scanner, signal generator, a risk guardian with veto power, bull/bear debate, trade explainer, journal, retrainer) on a LangGraph state graph. Around them sit FastAPI services, Redis, Kafka, TimescaleDB, MLflow and Optuna experiment tracking, XGBoost models and a Next.js dashboard. It trades on paper only.",
+    "point": "The part I'm proudest of is the research gauntlet: walk-forward splits, permutation tests and random-entry controls. It has rejected most of the strategy variants it has tested, including many that looked great in a plain backtest. I trust that more than any single backtest.",
+    "stats": [
+      {
+        "value": "248k",
+        "label": "lines of Python"
+      },
+      {
+        "value": "24",
+        "label": "agent modules"
+      },
+      {
+        "value": "1,862",
+        "label": "commits since Mar 2026"
+      },
+      {
+        "value": "321",
+        "label": "test files"
+      }
+    ],
+    "tags": [
+      "LangGraph",
+      "Claude API",
+      "FastAPI",
+      "XGBoost",
+      "MLflow",
+      "Optuna",
+      "Kafka",
+      "Redis",
+      "TimescaleDB",
+      "Next.js"
+    ]
+  },
   "projects": [
-    {"name": "go-idempotency-middleware", "text": "Go stdlib-only HTTP idempotency-key middleware: a retried POST never executes twice. Bounded in-memory record store, race-clean, with a black-box conformance tester.", "tags": ["Go", "HTTP", "Payments"], "url": ""},
-    {"name": "Movie streaming platform", "text": "Full-stack MERN movie platform on the TMDB API with JWT / OAuth 2.0 authentication.", "tags": ["React", "Node.js", "MongoDB"], "url": "https://github.com/rajparavivek1234/movie-streaming-platform"},
-    {"name": "E-Transportation", "text": "Flutter ride-booking app with real-time tracking, Google Geolocation routing and Razorpay in-app payments.", "tags": ["Flutter", "Razorpay", "Maps"], "url": "https://github.com/rajparavivek1234/E-Transportation"}
+    {
+      "name": "go-idempotency-middleware",
+      "text": "Go stdlib-only HTTP idempotency-key middleware: a retried POST never executes twice. Concurrent duplicates get 409, key reuse with a different body gets 422, and the record store is bounded and race-clean. Comes with a black-box conformance tester.",
+      "tags": [
+        "Go",
+        "HTTP",
+        "Payments"
+      ],
+      "url": ""
+    },
+    {
+      "name": "Movie streaming platform",
+      "text": "Full-stack MERN movie platform on the TMDB API with JWT / OAuth 2.0 authentication.",
+      "tags": [
+        "React",
+        "Node.js",
+        "MongoDB"
+      ],
+      "url": "https://github.com/rajparavivek1234/movie-streaming-platform"
+    },
+    {
+      "name": "E-Transportation",
+      "text": "Flutter ride-booking app with real-time tracking, Google Geolocation routing and Razorpay in-app payments.",
+      "tags": [
+        "Flutter",
+        "Razorpay",
+        "Maps"
+      ],
+      "url": "https://github.com/rajparavivek1234/E-Transportation"
+    }
   ],
-  "education": {"degree": "B.Tech, Information Technology", "school": "Dharmsinh Desai University, Gujarat", "period": "2019 — 2023", "grade": "CGPA 7.9 / 10"},
-  "certifications": ["Docker Mastery: with Kubernetes + Swarm — Udemy"]
+  "skills": [
+    {
+      "group": "Generative AI & agents",
+      "items": [
+        "LLM agent design & tool use",
+        "Claude Code skills, subagents & hooks",
+        "MCP integrations",
+        "LangGraph",
+        "Anthropic & OpenAI APIs",
+        "Prompt design",
+        "Human-in-the-loop gates",
+        "Evidence-grounded outputs",
+        "LLM classification pipelines",
+        "Headless-browser agents"
+      ]
+    },
+    {
+      "group": "ML & research",
+      "items": [
+        "XGBoost",
+        "MLflow",
+        "Optuna",
+        "Walk-forward validation",
+        "Permutation tests",
+        "Random-control baselines",
+        "pandas"
+      ]
+    },
+    {
+      "group": "Payments domain",
+      "items": [
+        "Auth / capture / void / refund",
+        "3DS 2.x & exemptions",
+        "Network tokens (VTS, MDES)",
+        "Apple Pay / Google Pay",
+        "CIT / MIT stored credentials",
+        "Chargebacks & fraud feedback",
+        "PIX · UPI · SPEI · open banking",
+        "PCI vault & egress proxy",
+        "Idempotency & retries"
+      ]
+    },
+    {
+      "group": "Languages",
+      "items": [
+        "Go (primary)",
+        "Python",
+        "Node.js / JavaScript",
+        "Rust",
+        "SQL",
+        "Reads Kotlin"
+      ]
+    },
+    {
+      "group": "Platform",
+      "items": [
+        "Kubernetes",
+        "Docker",
+        "Kafka",
+        "NATS",
+        "PostgreSQL",
+        "Redis",
+        "MongoDB",
+        "ClickHouse",
+        "Datadog",
+        "FastAPI",
+        "GCP"
+      ]
+    },
+    {
+      "group": "Engineering practice",
+      "items": [
+        "TDD",
+        "Mutation testing",
+        "Staging before/after evidence",
+        "RCA with sequence diagrams",
+        "On-call & incident response",
+        "CVE remediation"
+      ]
+    }
+  ],
+  "processors": [
+    "Adyen",
+    "Stripe",
+    "PayPal",
+    "Braintree",
+    "Airwallex",
+    "Checkout.com",
+    "Worldpay",
+    "CyberSource",
+    "Nuvei",
+    "MPGS",
+    "Ecommpay",
+    "Unlimint",
+    "emerchantpay",
+    "Kushki",
+    "dLocal",
+    "Mercado Pago",
+    "Rede",
+    "Cielo",
+    "Getnet",
+    "PagBank",
+    "Bamboo",
+    "CIBC",
+    "NHN KCP",
+    "QI",
+    "Monri",
+    "payabl",
+    "Wompi",
+    "Monnet",
+    "ZainCash",
+    "Tabapay",
+    "AllInPay",
+    "Santander",
+    "Itaú",
+    "Starkbank",
+    "STP",
+    "Splitit",
+    "Riskified",
+    "Signifyd",
+    "Forter",
+    "ClearSale",
+    "VGS"
+  ],
+  "education": {
+    "degree": "B.Tech, Information Technology",
+    "school": "Dharmsinh Desai University, Gujarat",
+    "period": "2019 — 2023",
+    "grade": "CGPA 7.9 / 10"
+  },
+  "certifications": [
+    "Docker Mastery: with Kubernetes + Swarm — Udemy"
+  ],
+  "hero_badge": "Winner · Yuno Agents Hackathon 2026",
+  "hackathon": {
+    "badge": "Winner · Yuno Agents Hackathon 2026",
+    "reward": "Each of the three team members was awarded 5,000 Yuno ESOPs",
+    "name": "Feature ETA Agent",
+    "pitch": "Give it a feature request. Get a delivery date you can defend.",
+    "problem": "Before, a feature request ended with a date somebody typed. Nobody wrote down which teams and services it touched, the date had no assumptions behind it, and priority got argued again in every meeting.",
+    "pillars": [
+      {
+        "title": "The model reads",
+        "text": "It quotes the ticket, finds the teams and services, maps dependencies, proposes sizes and asks at most five questions. It is never allowed to type a date."
+      },
+      {
+        "title": "The code calculates",
+        "text": "Python engines turn PERT effort estimates into a schedule, run 2,000 Monte Carlo simulations to get P50/P80/P95 dates, find the critical path and score priority with RICE and WSJF. 42 checks run at every step."
+      },
+      {
+        "title": "People decide",
+        "text": "Team leads accept or adjust, security signs off, and nothing is written to Jira or Slack without a human approval. Every plan is versioned and re-planned when something changes."
+      }
+    ],
+    "numbers": [
+      {
+        "value": "71",
+        "label": "eval cases, each run 3×"
+      },
+      {
+        "value": "0 → 1.00",
+        "label": "eval score in one day of fixes"
+      },
+      {
+        "value": "2,000",
+        "label": "simulations per plan"
+      },
+      {
+        "value": "11",
+        "label": "skills · 4 Python engines"
+      }
+    ],
+    "evals": [
+      "real tickets with known answers",
+      "correct behaviour at every step",
+      "asks instead of guessing",
+      "never invents tickets or people",
+      "accurate, with sources",
+      "checks live data, not memory",
+      "refuses what isn't its job"
+    ],
+    "built": "One agent on the company agent platform with 11 skills (guardrails, orchestrator, intake, impact, estimation, priority, review, publish, directory, engine installer) and 4 Python programs (date engine, priority engine, checker, report maker). It connects to Jira, Confluence, GitHub, Glean and Slack. The engines install from a checksum-verified source and test themselves on every install.",
+    "impact": "Three minutes instead of three meetings.",
+    "states": [
+      "received",
+      "understood",
+      "mapped",
+      "dated",
+      "ranked",
+      "in review",
+      "approved",
+      "published",
+      "tracked"
+    ]
+  }
 }
