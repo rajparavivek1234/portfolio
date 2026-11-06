@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Vivek H. Rajpara — Resume</title>
+<style>
+  @page { size: Letter; margin: 13mm 16mm 11mm; }
+  body { margin: 0; font: 10pt/1.28 "Times New Roman", Times, serif; color: #000; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  a { color: #1a3fd6; text-decoration: none; white-space: nowrap; }
+  header { text-align: center; }
+  h1 { font-size: 23pt; margin: 0; font-weight: 700; }
+  .title { font-size: 10.6pt; font-weight: 700; letter-spacing: .02em; margin: 3px 0 4px; }
+  .contact { font-size: 9.4pt; }
+  .contact .sep { color: #666; margin: 0 5px; }
+  .award { margin: 7px 0 0; padding: 4px 8px; border: 1px solid #b08900; background: #fff8e1; font-size: 9.8pt; text-align: center; }
+  h2 { font-size: 12.6pt; margin: 9px 0 4px; padding-bottom: 1px; border-bottom: 1px solid #000; font-weight: 700; }
+  p { margin: 0 0 3px; text-align: justify; }
+  table.skills { border-collapse: collapse; width: 100%; }
+  table.skills td { padding: 0.5px 0; vertical-align: top; }
+  table.skills td:first-child { width: 128px; font-weight: 700; }
+  .row { display: flex; justify-content: space-between; align-items: baseline; margin-top: 4px; }
+  .row b { font-size: 10.2pt; }
+  .sub { font-style: italic; margin: 0 0 1px; }
+  ul { margin: 2px 0 0; padding-left: 30px; }
+  li { margin: 0 0 2px; text-align: justify; }
+  .avoid { break-inside: avoid; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Vivek H. Rajpara</h1>
+  <div class="title">GENERATIVE AI &amp; BACKEND SOFTWARE ENGINEER</div>
+  <div class="contact">
+    <a href="https://www.linkedin.com/in/vivek-rajpara-gen-ai">linkedin.com/in/vivek-rajpara-gen-ai</a><span class="sep">|</span><a href="mailto:rajparavivek1234@gmail.com">rajparavivek1234@gmail.com</a>{{PHONE}}<span class="sep">|</span><span style="white-space:nowrap">Ahmedabad, India</span><span class="sep">|</span><a href="https://rajparavivek1234.github.io/portfolio/">rajparavivek1234.github.io/portfolio</a>
+  </div>
+  <div class="award"><b>Winner, Yuno Agents Hackathon 2026</b> (team of three) with the <b>Feature ETA Agent</b>, an LLM agent that turns a feature request into a defensible delivery date (P50/P80/P95). Each team member was awarded 5,000 Yuno ESOPs.</div>
+</header>
+
+<h2>Professional Summary</h2>
+<p>Generative AI and backend engineer who builds LLM agents that do real production work, and the Go payment systems they work on. At Yuno (payment orchestration) I own payment-provider and fraud integrations end to end and act as a primary responder for production incidents. I designed a suite of ~20 Claude Code agent skills that takes a production ticket from Jira, Slack and Datadog evidence to a root cause, a test-driven fix, a staging-verified pull request and an evidence report, with human approval before anything merges or is sent. That suite is how I authored 350+ PRs, reviewed 700+ and closed 470+ production tickets in one year. Experienced in Go, Python, Node.js and Rust, distributed systems, real-time analytics pipelines and workflow automation.</p>
+
+<h2>Technical Skills</h2>
+<table class="skills">
+  <tr><td>Generative AI:</td><td>LLM agent design &amp; tool use, Claude Code skills / subagents / hooks, MCP integrations, LangGraph, Anthropic &amp; OpenAI APIs, Prompt Engineering, LLM evals (judge models, golden sets), guardrails &amp; human-in-the-loop, LLM classification</td></tr>
+  <tr><td>ML &amp; Research:</td><td>Monte Carlo simulation, PERT estimation, XGBoost, MLflow, Optuna, walk-forward validation, permutation tests</td></tr>
+  <tr><td>Languages:</td><td>Go, Python, Node.js, JavaScript, Rust, SQL</td></tr>
+  <tr><td>Frameworks:</td><td>Express.js, Echo, Actix Web, FastAPI</td></tr>
+  <tr><td>Databases:</td><td>MySQL, PostgreSQL, MongoDB, Redis, CockroachDB, ClickHouse</td></tr>
+  <tr><td>Event Systems:</td><td>Kafka, NATS</td></tr>
+  <tr><td>Infrastructure:</td><td>Docker, Kubernetes, GCP, Datadog (logs, APM, monitors), Drone CI, Git, Postman</td></tr>
+  <tr><td>Payments:</td><td>Cards, 3DS 2.x, network tokens, Apple Pay / Google Pay, stored credentials (CIT/MIT), webhooks, PCI vault, chargebacks, PIX / UPI</td></tr>
+  <tr><td>Arch. &amp; Concepts:</td><td>OOPs, SOLID, Microservices, RESTful APIs, Concurrency, Multithreading, Distributed Systems</td></tr>
+  <tr><td>Testing:</td><td>TDD, mutation testing, Cucumber, Chai, Postman</td></tr>
+</table>
+
+<h2>Experience</h2>
+<div class="row"><b>Software Engineer – Backend &amp; AI, Yuno (Payment Orchestration)</b><span>Sep 2025 – Present</span></div>
+<ul>
+  <li><b>Hackathon-winning Feature ETA Agent:</b> co-built (team of three) one agent with 11 skills and 4 Python engines on the company agent platform. The LLM reads the ticket, maps teams and dependencies and asks at most five questions. Deterministic engines compute PERT effort, 2,000 Monte Carlo simulations for P50/P80/P95 dates, the critical path and RICE/WSJF priority, with 42 checks per step. Nothing is written to Jira or Slack without human approval.</li>
+  <li>Built the agent's evaluation suite: 71 cases run three times each and judged by a separate model across seven behaviours (correctness, clarification, no fabrication, grounding, scope refusal). Raised the score from 0 to 0.99–1.00 over 21 runs in one day.</li>
+  <li><b>On-call agent suite:</b> designed ~20 Claude Code skills (ticket diagnosis, payment and webhook forensics, alert triage, connector fixes with TDD, staging verification, PR review, release approval, deploy monitoring), with verify-first and post-gate guardrails so agents never report state from memory.</li>
+  <li>Built a hands-off E2E payment bot that drives provider redirects and 3DS OTP challenges in headless Chrome, and a deploy-monitor agent that compares old and new versions (error mix, p95/p99 latency, 5xx, decline mix) during canary rollouts.</li>
+  <li>Design and implement payment provider integrations across cards, wallets, QR and redirect flows, including QI Cards with 3DS, Wompi–Nequi (Direct), Monnet (QR, Wallet, Cards), ZainCash V2, Tabapay, AllInPay and NHN KCP (Korea). Onboarded Monri and payabl into the PCI egress proxy.</li>
+  <li>Build and maintain fraud and risk integrations with Forter, Signifyd, Riskified, ClearSale and Yuno Fraud Screening, covering screening, fulfillment, refund and chargeback feedback flows.</li>
+  <li>Fixed network-token and stored-credential flows (cryptograms, DPAN MITs, Apple Pay / Google Pay, CIT/MIT chains) across Stripe, Airwallex, PayPal, Nuvei, Unlimint, emerchantpay and dLocal, restoring failed recurring charges.</li>
+  <li>Act as a primary Integrations contact for merchant-facing incidents: webhook 5xx spikes (including a self-amplifying retry loop), signature verification failures, decline-code mapping errors, provider timeouts and callback-URL failures across Stripe, Adyen, Airwallex, PayPal, dLocal, Mercado Pago, PagSeguro and Pinbank. Every fix ships with staging before/after traces.</li>
+  <li>Participate in integrations on-call rotations, coordinating with DevOps and SecOps. Handled a multi-provider egress outage RCA and fixed a settlement duplicate-submission race with compare-and-set.</li>
+  <li>Security hygiene: removed cleartext credentials from HTTP logs in three connectors, and drove SQL-injection remediation across 10 repos, open-redirect fixes across 6 and Go toolchain CVE bumps.</li>
+</ul>
+
+<div class="row avoid"><b>Software Engineer, Rapidops Inc. (Salesmate – CRM)</b><span>Jan 2023 – Aug 2025</span></div>
+<ul>
+  <li>Engineered a high-performance email synchronization pipeline in Go (IMAP / Gmail / Outlook), reducing sync latency by 30% and improving reliability at scale.</li>
+  <li>Integrated LLM-based email classification for spam and transactional/promotional detection, increasing triage efficiency by 40%; implemented phishing and malicious-URL detection.</li>
+  <li>Contributed to Smart Flow &amp; AI Agent, a no-code automation system executing 100K+ workflows per day, building backend logic for triggers, conditions, branching and action execution.</li>
+  <li>Designed and maintained real-time analytics pipelines using Kafka ingestion and ClickHouse for CRM reporting and insights.</li>
+  <li>Refactored performance-critical Node.js services into Go, reducing CPU usage and improving response times.</li>
+  <li>Hardened REST APIs against SQL injection and unauthorized access; built secure CSV/Excel imports with rollback, deduplication and GDPR-compliant updates.</li>
+  <li>Developed a document management system with role-based access control and password-protected sharing; implemented Deal Split Credit logic and automated thumbnail generation.</li>
+</ul>
+
+<h2>Projects</h2>
+<div class="row avoid"><b>Nexus — Multi-Agent Research Platform (Python, LangGraph, FastAPI, XGBoost, MLflow)</b><span>2026</span></div>
+<ul class="avoid">
+  <li>24 agent modules (scanner, signal generator, risk guardian with veto, bull/bear debate, explainer, journal) on a LangGraph state graph; ~248k lines of Python, 1,862 commits, 321 test files; paper trading only.</li>
+  <li>Research gauntlet of walk-forward splits, permutation tests and random-entry controls that rejects strategies which only look good in a plain backtest.</li>
+</ul>
+<div class="row avoid"><b>go-idempotency-middleware (Go, standard library)</b><span>2026</span></div>
+<ul class="avoid">
+  <li>HTTP idempotency-key middleware so a retried POST never executes twice: 409 for concurrent duplicates, 422 for key reuse with a different body, bounded race-clean store and a black-box conformance tester.</li>
+</ul>
+<div class="row avoid"><b>E-Movie Platform (MERN)</b><span>Feb 2023 – Apr 2023</span></div>
+<ul class="avoid"><li>Full-stack movie platform using React, Node.js, MongoDB and the TMDB API, with JWT/OAuth 2.0 authentication.</li></ul>
+<div class="row avoid"><b>E-Transportation App (Flutter)</b><span>Jul 2022 – Nov 2022</span></div>
+<ul class="avoid"><li>Ride-booking app with real-time tracking, Razorpay in-app payments and Google Geolocation routing.</li></ul>
+
+<div class="avoid">
+<h2>Education</h2>
+<div class="row" style="margin-top:0"><b>B.Tech in Information Technology</b><span>Jul 2019 – Jul 2023</span></div>
+<p>Dharmsinh Desai University, Gujarat · CGPA: 7.9 / 10</p>
+</div>
+
+<div class="avoid">
+<h2>Awards &amp; Certifications</h2>
+<p><b>Winner, Yuno Agents Hackathon 2026</b> (Feature ETA Agent), awarded 5,000 ESOPs</p>
+<p>Docker Mastery: with Kubernetes + Swarm from a Docker Captain — Udemy</p>
+</div>
+
+<div class="avoid">
+<h2>Soft Skills</h2>
+<p>Problem Solving | Collaboration | Adaptability | Ownership | Time Management | Critical Thinking | Leadership</p>
+</div>
+</body>
+</html>

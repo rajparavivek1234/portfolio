@@ -7,7 +7,7 @@ Renders resume/resume.html to PDF with headless Chrome, in two versions:
   - private (with phone)      -> path given by --private-out       (never committed)
 
 Usage:
-    python3 build_resume.py --private-out ~/Downloads/Vivek_Rajpara_Resume_26.pdf
+    python3 build_resume.py --private-out "~/Downloads/Vivek_Rajpara_Resume_26 (2).pdf"
 """
 
 from __future__ import annotations
@@ -18,10 +18,10 @@ import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-TEMPLATE = ROOT / "resume" / "resume.html"
+TEMPLATE = ROOT / "resume" / "resume_classic.html"  # resume/resume.html = modern alternative
 PUBLIC_OUT = ROOT / "static" / "Vivek_Rajpara_Resume.pdf"
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-PHONE = ' · <a href="tel:+917016295028">+91 70162 95028</a>'
+PHONE = '<span class="sep">|</span><a href="tel:+917016295028">+91 7016295028</a>'
 
 
 def render(html: str, out: Path) -> None:
