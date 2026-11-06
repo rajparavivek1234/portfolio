@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{SHORT_NAME}} · Payments Engineer</title>
+<meta name="description" content="{{NAME}} — {{ROLE}}. {{TAGLINE}}">
+<meta property="og:title" content="{{SHORT_NAME}} · Payments Engineer">
+<meta property="og:description" content="{{TAGLINE}}">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#05070d">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2305070d'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='28' font-weight='700' text-anchor='middle' fill='%235eead4'%3EVR%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="scene" aria-hidden="true"></canvas>
+<div class="vignette" aria-hidden="true"></div>
+
+<header class="nav glass">
+  <a href="#top" class="brand mono">vivek<span class="accent">.rajpara</span></a>
+  <nav aria-label="Sections">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#cases">Incidents</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact" class="nav-cta">Contact</a>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero-text">
+      <p class="eyebrow mono"><span class="pulse"></span> open to backend &amp; payments roles</p>
+      <h1>{{NAME}}</h1>
+      <p class="role">{{ROLE}}</p>
+      <p class="tagline">{{TAGLINE}}</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#experience">See the work</a>
+        <a class="btn btn-glass" href="mailto:{{EMAIL}}">Email me</a>
+      </div>
+      <p class="loc mono">{{LOCATION}}</p>
+    </div>
+
+    <aside class="terminal glass" aria-label="Simulated transaction log">
+      <div class="term-head">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="mono">orchestrator.log</span>
+        <span class="mono term-rate" id="tx-rate">0 tx</span>
+      </div>
+      <ol class="term-body mono" id="tx-log" data-processors="{{PROCESSORS_JSON}}"></ol>
+      <p class="term-note mono">simulated traffic, drawn from the 3D scene behind this page</p>
+    </aside>
+
+    <a href="#about" class="scroll-cue mono" aria-label="Scroll to About">scroll ↓</a>
+  </section>
+
+  <section id="about" class="section">
+    <div class="section-head reveal">
+      <span class="kicker mono">01 / about</span>
+      <h2>I keep payments flowing between merchants and processors.</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text glass reveal">{{SUMMARY}}</div>
+      <div class="stats">{{STATS}}</div>
+    </div>
+  </section>
+
+  <section id="experience" class="section">
+    <div class="section-head reveal">
+      <span class="kicker mono">02 / experience</span>
+      <h2>Where I've worked</h2>
+    </div>
+    <div class="timeline">{{EXPERIENCE}}</div>
+  </section>
+
+  <section id="cases" class="section">
+    <div class="section-head reveal">
+      <span class="kicker mono">03 / production incidents</span>
+      <h2>Bugs I've chased down in production</h2>
+      <p class="lead">Every fix ships with evidence: before/after traces, verified on staging before release.</p>
+    </div>
+    <div class="cases">{{CASES}}</div>
+  </section>
+
+  <section id="skills" class="section">
+    <div class="section-head reveal">
+      <span class="kicker mono">04 / skills</span>
+      <h2>What I work with</h2>
+    </div>
+    <div class="skills">{{SKILLS}}</div>
+    <div class="processors reveal">
+      <h3 class="mono">Processors, wallets &amp; fraud providers I've integrated or debugged</h3>
+      <div class="marquee">{{PROCESSORS}}</div>
+    </div>
+  </section>
+
+  <section id="projects" class="section">
+    <div class="section-head reveal">
+      <span class="kicker mono">05 / projects</span>
+      <h2>Side projects</h2>
+    </div>
+    <div class="projects">{{PROJECTS}}</div>
+    <div class="edu-row">
+      <div class="edu glass reveal">
+        <span class="kicker mono">education</span>
+        <h3>{{EDU_DEGREE}}</h3>
+        <p>{{EDU_SCHOOL}}</p>
+        <p class="mono muted">{{EDU_PERIOD}} · {{EDU_GRADE}}</p>
+      </div>
+      <div class="edu glass reveal">
+        <span class="kicker mono">certifications</span>
+        <ul class="certs">{{CERTS}}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section contact">
+    <div class="contact-card glass reveal">
+      <span class="kicker mono">06 / contact</span>
+      <h2>Need someone to own your payment integrations?</h2>
+      <p class="lead">I'm happy to talk about backend, payments and integration roles, remote or in Ahmedabad.</p>
+      <a class="email mono" href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+      <div class="hero-actions center">
+        <a class="btn btn-glass" href="{{LINKEDIN}}" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a class="btn btn-glass" href="{{GITHUB}}" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer mono">
+  <span>© {{YEAR}} {{SHORT_NAME}}</span>
+  <span class="muted">Generated from JSON by a Python build script · three.js scene · hosted on GitHub Pages</span>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="scene.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

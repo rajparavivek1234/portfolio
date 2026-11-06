@@ -1,0 +1,90 @@
+{
+  "name": "Vivek H. Rajpara",
+  "short_name": "Vivek Rajpara",
+  "role": "Backend Engineer — Payments Orchestration & Processor Integrations",
+  "tagline": "I build and run the connectors that move money between merchants and 55+ payment processors, in Go.",
+  "location": "Ahmedabad, Gujarat, India · IST with EU overlap · Remote",
+  "email": "rajparavivek1234@gmail.com",
+  "linkedin": "https://www.linkedin.com/in/vivek-rajpara-b34527194",
+  "github": "https://github.com/rajparavivek1234",
+  "summary": [
+    "I'm a hands-on payments engineer working on the processor connections behind a multi-processor orchestration platform. At Yuno I own gateway adapters end to end: request builders, tokenization and PCI-vault connectivity, normalized status and decline mapping, webhooks and reconciliation, and keeping the connectors reliable once merchants are live.",
+    "Go is my main language; I also write Node.js and Rust. I work AI-native: I built agent tooling that takes a production ticket from evidence gathering to a test-driven fix, a PR verified on staging and a written evidence report. That tooling is how I keep up the volume below without lowering the review bar."
+  ],
+  "stats": [
+    {"value": 350, "suffix": "+", "label": "PRs authored", "detail": "across 45+ connector & platform repos (215+ merged)"},
+    {"value": 700, "suffix": "+", "label": "PRs reviewed", "detail": "for the Integrations org"},
+    {"value": 470, "suffix": "+", "label": "production tickets closed", "detail": "bugs, merchant incidents, alerts — in 12 months"},
+    {"value": 55, "suffix": "+", "label": "providers touched", "detail": "processors, wallets, 3DS and fraud providers"}
+  ],
+  "experience": [
+    {
+      "company": "Yuno",
+      "context": "Payment orchestration",
+      "title": "Software Engineer, Integrations",
+      "period": "Sep 2025 — Present",
+      "place": "Remote",
+      "intro": "I own processor connectors (Go microservices on a shared integration framework) from first build through production, and I'm the main Integrations responder for merchant-facing incidents.",
+      "areas": [
+        {"title": "Gateway adapters", "text": "Built and shipped processor adapters end to end: QI Cards with 3DS (Iraq), Monnet card redirect, Wompi–Nequi, ZainCash, Tabapay and AllInPay. Took over and finished NHN KCP (Korea: card, bank transfer, carrier billing, with webhook reconciliation of lost approvals). Onboarded Monri and payabl into the PCI egress proxy, and added card verification and wallet support to Merchantware, Kushki, Worldpay and Nuvei."},
+        {"title": "Tokenization & vault", "text": "Registered providers and signing commands in the PCI egress proxy so a raw PAN never enters connector code. Fixed network-token flows (Visa/Mastercard cryptograms, cryptogram-less DPAN MITs, Apple Pay / Google Pay DSRP + ECI) across Airwallex, emerchantpay, Nuvei, Unlimint, PayPal and dLocal."},
+        {"title": "Normalized responses", "text": "Own the mapping of processor statuses and decline codes into the platform's unified taxonomy: network-decline-code-first mapping for Stripe, separating timeouts from terminal declines for Rede, Cielo and PayPal, intermediate states for Ecommpay, and corrected terminal declines for CIBC, Kushki, Bamboo and Getnet."},
+        {"title": "Webhooks & reconciliation", "text": "Hardened webhook services for Adyen, Airwallex, Mercado Pago, Stripe, dLocal, Starkbank, Zoop, QI and KCP: idempotent acks, provider-ID recovery on declines, fraud-review replay, expiry fallbacks for abandoned 3DS and PIX, and removal of a self-amplifying 5XX retry loop."},
+        {"title": "Subscriptions & retries", "text": "Fixed CIT/MIT stored-credential chains that broke recurring charges: off-session flags (Stripe), network-transaction-ID format (Airwallex), chain references (Unlimint), ACDC stored credentials (PayPal), UPI Autopay mandates (Adyen) and CVV-token recurring (CobroDigital)."},
+        {"title": "Production reliability", "text": "On the Integrations on-call rotation: alert-storm forensics, a multi-provider egress outage RCA, a settlement duplicate-submission race (compare-and-set fix), stuck-refund pollers and monitor design. Every fix ships with staging before/after traces and mutation-tested mapping tables."},
+        {"title": "Security & hygiene", "text": "Removed cleartext credentials from HTTP logs in three connectors, drove SQL-injection (pgx) remediation across 10 repos and open-redirect (chi) fixes across 6, plus Go toolchain CVE bumps."},
+        {"title": "AI-native engineering", "text": "Built a Claude Code skill suite that runs a ticket from Jira/Datadog/code evidence to a TDD fix, draft PR, staging verification and evidence report; a hands-off E2E payment bot that drives provider redirects and 3DS challenges in headless Chrome; and an internal \"feature ETA\" agent."}
+      ]
+    },
+    {
+      "company": "Rapidops Inc.",
+      "context": "Salesmate CRM",
+      "title": "Software Engineer",
+      "period": "Jan 2023 — Aug 2025",
+      "place": "Ahmedabad, India",
+      "intro": "Backend work on a SaaS CRM: email infrastructure, workflow automation, analytics and security.",
+      "areas": [
+        {"title": "Email sync in Go", "text": "Engineered the Go email-synchronization pipeline (IMAP / Gmail / Outlook), cutting sync latency ~30%, and refactored performance-critical Node.js services into Go to cut CPU and response time."},
+        {"title": "LLM classification", "text": "Integrated LLM-based email classification (spam, transactional vs. promotional) plus phishing and malicious-URL detection, raising triage efficiency ~40%."},
+        {"title": "Smart Flow & AI Agent", "text": "Backend logic for a no-code automation engine running 100K+ workflows a day: triggers, conditions, branching and actions."},
+        {"title": "Analytics & data", "text": "Real-time analytics pipelines (Kafka into ClickHouse) for CRM reporting; secure CSV/Excel import with rollback, de-duplication and GDPR-compliant updates."},
+        {"title": "Security", "text": "Hardened REST APIs against SQL injection and unauthorized access; built role-based document management with password-protected sharing and deal split-credit logic."}
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "title": "First-poll race on a synchronous card processor",
+      "symptom": "The gateway acknowledged sales, then answered the first status poll with \"request not found\". Our adapter declined while the processor captured the money.",
+      "fix": "Moved the pending-code rule into one shared set for all five poll steps, added an unmapped-code warning, and documented the exhaustion path and its trade-off.",
+      "proof": "Mocked and live traces before/after."
+    },
+    {
+      "title": "Recurring charges failing at a gateway",
+      "symptom": "Merchant-initiated renewals were declined: off-session and network-transaction-ID rules only applied to subscriptions.",
+      "fix": "Extended the merchant-initiated predicate to every stored-credential flow and normalized the network-transaction-ID format.",
+      "proof": "Verified on staging before release."
+    },
+    {
+      "title": "Webhook 5XX storm",
+      "symptom": "A webhook endpoint returned 500 on events it should ignore, so the processor retried for days and flooded the alerts.",
+      "fix": "Changed the ignorable-error path to a 204 ack and added a monitor that tells provider retries apart from real failures.",
+      "proof": "Alert volume back to baseline."
+    }
+  ],
+  "skills": [
+    {"group": "Payments domain", "items": ["Auth / capture / void / refund / verify", "3DS 2.x & exemptions", "Network tokens (VTS, MDES)", "Apple Pay / Google Pay", "CIT / MIT stored credentials", "Subscriptions & rebills", "Chargebacks & fraud feedback", "PIX · UPI · SPEI · open banking", "PCI vault & egress proxy", "Idempotency & retries", "Routing fallback"]},
+    {"group": "Languages", "items": ["Go (primary)", "Node.js / JavaScript", "Rust", "SQL", "Reads Kotlin"]},
+    {"group": "Platform", "items": ["Kubernetes", "Docker", "Kafka", "NATS", "PostgreSQL", "Redis", "MongoDB", "ClickHouse", "CockroachDB", "Datadog (logs, APM, monitors)", "Drone CI", "GCP"]},
+    {"group": "Engineering practice", "items": ["TDD", "Mutation testing", "Staging before/after evidence", "RCA with sequence diagrams", "On-call & incident response", "Credential redaction", "CVE remediation"]},
+    {"group": "AI-native tooling", "items": ["Claude Code agent skills", "Headless-browser E2E bots", "LLM classification pipelines", "Prompt design", "Internal agent platforms"]}
+  ],
+  "processors": ["Adyen", "Stripe", "PayPal", "Braintree", "Airwallex", "Checkout.com", "Worldpay", "CyberSource", "Nuvei", "MPGS", "Ecommpay", "Unlimint", "emerchantpay", "Kushki", "dLocal", "Mercado Pago", "Rede", "Cielo", "Getnet", "PagBank", "Bamboo", "CIBC", "NHN KCP", "QI", "Monri", "payabl", "Wompi", "Monnet", "ZainCash", "Tabapay", "AllInPay", "Santander", "Itaú", "Starkbank", "STP", "Splitit", "Riskified", "Signifyd", "Forter", "ClearSale", "VGS"],
+  "projects": [
+    {"name": "go-idempotency-middleware", "text": "Go stdlib-only HTTP idempotency-key middleware: a retried POST never executes twice. Bounded in-memory record store, race-clean, with a black-box conformance tester.", "tags": ["Go", "HTTP", "Payments"], "url": ""},
+    {"name": "Movie streaming platform", "text": "Full-stack MERN movie platform on the TMDB API with JWT / OAuth 2.0 authentication.", "tags": ["React", "Node.js", "MongoDB"], "url": "https://github.com/rajparavivek1234/movie-streaming-platform"},
+    {"name": "E-Transportation", "text": "Flutter ride-booking app with real-time tracking, Google Geolocation routing and Razorpay in-app payments.", "tags": ["Flutter", "Razorpay", "Maps"], "url": "https://github.com/rajparavivek1234/E-Transportation"}
+  ],
+  "education": {"degree": "B.Tech, Information Technology", "school": "Dharmsinh Desai University, Gujarat", "period": "2019 — 2023", "grade": "CGPA 7.9 / 10"},
+  "certifications": ["Docker Mastery: with Kubernetes + Swarm — Udemy"]
+}
