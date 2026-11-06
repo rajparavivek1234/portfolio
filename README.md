@@ -13,6 +13,7 @@ A single-page portfolio for a backend / payments engineer. All content lives in
   Each response that lands is printed in the hero's transaction log.
 - **Glass UI** — translucent, blurred panels over the 3D scene (`static/style.css`).
   Respects `prefers-reduced-motion` and still works without WebGL.
+- **Resume** — `build_resume.py` prints `resume/resume.html` to PDF with headless Chrome: a public copy (no phone) at `static/Vivek_Rajpara_Resume.pdf` plus its preview image, and with `--private-out` a copy with the phone number that is never committed.
 - **Deploy** — `deploy.sh` runs `build.py` and force-pushes `dist/` to the
   `gh-pages` branch, which GitHub Pages serves.
 

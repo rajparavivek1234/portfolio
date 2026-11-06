@@ -29,7 +29,7 @@
   renderer.setClearColor(0x000000, 0);
 
   var scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x05070d, 0.028);
+  scene.fog = new THREE.FogExp2(0x05070d, 0.022);
   var camera = new THREE.PerspectiveCamera(55, 1, 0.1, 200);
   camera.position.set(0, 0, 14);
 
@@ -155,6 +155,14 @@
   starGeo.setAttribute("position", new THREE.BufferAttribute(starPos, 3));
   var stars = new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0x9fb0d6, size: 0.12, transparent: true, opacity: 0.55, depthWrite: false }));
   scene.add(stars);
+
+  // ---- perspective grid floor (fades into the fog) ----
+  var grid = new THREE.GridHelper(200, 100, 0x818cf8, 0x818cf8);
+  grid.material.transparent = true;
+  grid.material.opacity = 0.22;
+  grid.material.depthWrite = false;
+  grid.position.y = -6.5;
+  scene.add(grid);
 
   // ---- packets ----
   var packets = [];
@@ -323,6 +331,8 @@
     world.position.y += (world.userData.baseY - world.position.y) * 0.05;
     camera.position.z = 14 + Math.sin(scrollP * Math.PI) * 4;
     stars.rotation.y = t * 0.008;
+    grid.position.z = (t * 0.8) % 2;
+    grid.position.y = -6.5 - scrollP * 3;
 
     renderer.render(scene, camera);
     if (!reduceMotion) requestAnimationFrame(frame);

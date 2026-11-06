@@ -269,6 +269,7 @@ def render(profile: dict) -> str:
         "EDU_GRADE": e(edu["grade"]),
         "CERTS": "".join(f"<li>{e(c)}</li>" for c in profile["certifications"]),
         "YEAR": str(date.today().year),
+        "RESUME_UPDATED": date.today().strftime("%b %Y"),
     }
     page = TEMPLATE.read_text(encoding="utf-8")
     for key, value in replacements.items():
@@ -284,7 +285,13 @@ def build() -> None:
     if DIST.exists():
         shutil.rmtree(DIST)
     shutil.copytree(STATIC, DIST)
-    (DIST / "index.html").write_text(render(profile), encoding="utf-8")
+    page = render(profile)
+    # Cache-bust the assets so returning visitors get the new CSS/JS straight away.
+    import hashlib
+    for asset in ("style.css", "scene.js", "app.js"):
+        digest = hashlib.sha1((STATIC / asset).read_bytes()).hexdigest()[:8]
+        page = page.replace(f'"{asset}"', f'"{asset}?v={digest}"')
+    (DIST / "index.html").write_text(page, encoding="utf-8")
     (DIST / ".nojekyll").write_text("", encoding="utf-8")
     print(f"built {DIST / 'index.html'} ({sum(1 for p in DIST.rglob('*') if p.is_file())} files)")
 

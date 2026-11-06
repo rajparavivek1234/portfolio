@@ -222,4 +222,24 @@
     }, { rootMargin: "-45% 0px -50% 0px" });
     sections.forEach(function (s) { navIO.observe(s); });
   }
+
+  // ---- cursor spotlight + glass sheen ----
+  if (!reduceMotion && window.matchMedia("(pointer: fine)").matches) {
+    var root = document.documentElement, raf = 0, lastEv = null;
+    window.addEventListener("pointermove", function (ev) {
+      lastEv = ev;
+      if (raf) return;
+      raf = requestAnimationFrame(function () {
+        raf = 0;
+        root.style.setProperty("--mx", lastEv.clientX + "px");
+        root.style.setProperty("--my", lastEv.clientY + "px");
+        var g = lastEv.target.closest && lastEv.target.closest(".glass");
+        if (g) {
+          var r = g.getBoundingClientRect();
+          g.style.setProperty("--gx", (lastEv.clientX - r.left) + "px");
+          g.style.setProperty("--gy", (lastEv.clientY - r.top) + "px");
+        }
+      });
+    }, { passive: true });
+  }
 })();
